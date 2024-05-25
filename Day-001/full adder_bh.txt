@@ -2,10 +2,10 @@
 
 module full_adder_bh (
     output reg sum, carry,
-    input a, b, Cout
+    input a, b, Cin
 );
     always @(*)
     begin
- {sum,carry} = a + b + Cout;
+ {sum,carry} = a + b + Cin;
  end 
 endmodule
