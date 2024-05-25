@@ -1,0 +1,18 @@
+`timescale 1ns / 1ps
+
+module full_add_tb();
+ wire sum,carry;
+   reg a,b,cin;
+full_add dut(sum,carry,a,b,cin);
+   initial
+   begin
+       a = 0;
+       b = 0;
+       cin = 0;
+   end
+   always #100 a= ~a;
+   always #200 b =~b;
+   always #400 cin = ~cin;
+
+   
+endmodule
