@@ -3,7 +3,7 @@
 
 module full_adder_st(
     output sum,carry,
-    input a,b,Cout
+    input a,b,Cin
     );
 wire w1,w2,w3;
 
