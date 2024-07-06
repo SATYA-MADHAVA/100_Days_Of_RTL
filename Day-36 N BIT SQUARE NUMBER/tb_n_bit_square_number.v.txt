@@ -1,0 +1,28 @@
+module tb_square_number;
+
+parameter N = 8;
+reg [N-1:0] number;
+wire [(2*N)-1:0] square;
+
+square_number #(N) uut (
+    .number(number),
+    .square(square)
+);
+
+initial begin
+    number = 0;
+
+    #10 number = 4;
+    #10 number = 7;
+    #10 number = 10;
+    #10 number = 15;
+    #10 number = 255; // for N = 8
+
+    #10 $finish;
+end
+
+initial begin
+    $monitor("At time %t, number = %d, square = %d", $time, number, square);
+end
+
+endmodule

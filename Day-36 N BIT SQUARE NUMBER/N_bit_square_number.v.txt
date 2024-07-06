@@ -1,0 +1,8 @@
+module square_number #(parameter N = 8) (
+    input [N-1:0] number,
+    output [(2*N)-1:0] square
+);
+
+assign square = number * number;
+
+endmodule
