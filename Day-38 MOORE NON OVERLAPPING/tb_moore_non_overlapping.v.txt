@@ -1,0 +1,58 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/09/2024 02:31:41 PM
+// Design Name: 
+// Module Name: tb_moore_non_overlapping
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+module tb_moore_non_overlapping;
+    wire dout;
+    reg din, clk, rst;
+
+    moore_non_overlapping uut (din, clk, rst, dout);
+
+    always #50 clk = ~clk;
+
+    initial begin
+        rst = 1;
+        din = 0;
+        clk = 0;
+        #100; rst = 0; 
+        din = 1;
+        #100; din = 1;
+        #100; din = 0;
+        #100; din = 0;
+        #100; din = 1;
+        #100; din = 0;
+        #100; din = 0;
+        #100; din = 1;
+        #100; din = 0;
+        #100; din = 0;
+        #100; din = 1;
+        #100; din = 0;
+        #100; din = 0;
+
+    end
+
+    initial begin
+        $monitor("clk=%b, rst=%b, din=%b, dout=%b", clk, rst, din, dout);
+        #2000 $finish;
+    end
+          
+endmodule
