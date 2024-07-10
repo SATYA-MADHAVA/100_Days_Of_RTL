@@ -1,0 +1,58 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/10/2024 11:30:37 AM
+// Design Name: 
+// Module Name: mealy_overlapping_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module mealy_overlapping_tb();
+//inputs
+reg clk;
+reg din;
+reg reset;
+wire dout;//output
+
+//module instantiate DUT
+ mealy_overlapping uut(.din(din),.clk(clk),.reset(reset),.dout(dout));
+ initial begin
+  reset = 1;
+         din = 0;
+         clk = 0;
+         #100; reset = 0; 
+         din = 1;
+  #10 din = 0;
+  #10 din = 0;
+  #10 din = 1;
+  #10 din = 0;
+  #10 din = 1;
+  #10 din = 1;
+  #10 din = 0;
+  #10 din = 1;
+  #10 din = 1;
+  end
+  
+  //#10 $finish ;
+   initial begin
+         $monitor("clk=%b, reset=%b, din=%b, dout=%b", clk, reset, din, dout);
+         #2000 $finish;
+     end
+
+
+
+
+endmodule

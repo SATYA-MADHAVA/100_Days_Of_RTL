@@ -1,0 +1,71 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/10/2024 11:12:48 AM
+// Design Name: 
+// Module Name: mealy_overlapping
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module mealy_overlapping(
+    input din,
+    input clk,
+    input reset,
+    output reg dout
+    );
+    
+    parameter A = 0,
+              B = 1,
+              C = 2,
+              D = 3;
+    reg [1:0] current_state,next_state;
+    always@(posedge clk, posedge reset)
+    begin
+     if(reset)
+      current_state<= A;
+     else
+      current_state<= next_state;
+    end
+    always@( current_state or next_state)
+    begin
+    case(current_state)
+    A: begin
+      dout = 0;
+      next_state = din ? B :A;
+      end
+    B:  begin
+      dout = 0;
+      next_state = din ? B : C;
+      end
+    C: begin
+      dout = 0;
+      next_state = din ? D : A;
+      end
+     D : begin
+     if(din==1) begin
+     next_state = B;
+     dout = 1;
+     end
+     else begin
+      next_state = C;
+      dout = 0;
+      end
+      end
+      default: next_state = A; 
+      
+      endcase
+    end
+endmodule 
