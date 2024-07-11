@@ -1,0 +1,84 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/11/2024 02:48:48 PM
+// Design Name: 
+// Module Name: mealy_non_overlapping
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module mealy_non_overlapping(
+
+input din,
+input clk,
+input reset,
+output reg dout
+);
+reg [1:0] current_state,next_state;
+
+parameter A = 2'b00,
+          B = 2'b01,
+          C = 2'b10,
+          D = 2'b11;
+
+always@(posedge clk)
+begin
+if(reset == 1) begin
+ current_state <= A;
+ end
+ else begin
+ current_state <= next_state;
+ end
+ end
+ 
+ always@(din or current_state) begin
+ case(current_state)
+ A: if (din == 1) begin
+   next_state = B;
+   dout = 1'b0; end
+   else begin
+   next_state = A;
+   dout = 1'b0; end
+   
+  B: if (din==0) begin
+  next_state = C;
+  dout = 1'b0; end
+  else begin 
+  next_state = current_state;
+  dout = 1'b0; end
+  
+  C: if(din==1) begin
+    next_state = D;
+    dout= 1'b0; end
+    else begin
+    next_state = A;
+    dout= 1'b0; end
+    
+  D: if(din==1) begin
+  next_state = A;
+  dout = 1'b0; end
+  else begin
+  next_state = A;
+  dout = 1'b1; end
+  
+  default: next_state = A;
+  
+  
+   
+ endcase
+ 
+ end
+endmodule
