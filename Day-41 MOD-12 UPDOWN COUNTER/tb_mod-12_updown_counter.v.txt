@@ -1,0 +1,44 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/12/2024 04:09:07 PM
+// Design Name: 
+// Module Name: mod_12_updown_counter_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+module mod_12_updown_counter_tb;
+
+  wire [3:0] q;
+  reg mod;
+  reg clk;
+  reg rst;
+
+  mod_12_updown_counter dut(q, mod, clk, rst);
+
+  initial begin
+    clk = 0;
+    rst = 1;
+    mod = 0;
+    #20 rst = 0;
+    #800 $finish;
+  end
+
+  always #300 mod = ~mod;
+  always #10 clk = ~clk;
+
+endmodule

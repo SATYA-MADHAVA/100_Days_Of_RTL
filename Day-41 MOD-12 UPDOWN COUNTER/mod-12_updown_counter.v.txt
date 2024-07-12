@@ -1,0 +1,50 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/12/2024 03:45:22 PM
+// Design Name: 
+// Module Name: mod_12_updown_counter
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+module mod_12_updown_counter(
+  output reg [3:0] q,
+  input mod, clk, rst
+);
+
+  always @(posedge clk) begin
+    if (rst) begin
+      q <= 4'b0000;
+    end
+    else begin
+      if (mod) begin //mod=1 for up counter
+        if (q == 4'b1011) begin
+          q <= 4'b0000;
+        end
+        else begin
+          q <= q + 1;
+        end
+      end
+      else begin
+       if (q == 4'b0000) begin
+          q <= 4'b1011;
+       end
+       else begin
+          q <= q - 1;
+       end
+       end
+    end
+  end
+endmodule
