@@ -1,0 +1,57 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/15/2024 06:45:20 PM
+// Design Name: 
+// Module Name: D_FF_BY_SR_FF
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+    
+
+module D_FF_BY_SR_FF(
+    input d,clk,
+    output q,qbar
+    );
+    sr ff(d,~d,clk,q,qbar);
+    
+endmodule
+
+module sr(
+    input s,r,clk,
+    output reg q,qbar
+    );
+    
+    always @(posedge clk ) begin
+         if(s == 0 && r == 0) begin
+             q <= q;
+             qbar  <= qbar;
+         end 
+         else if (s == 0 && r == 1) begin
+             q <= 1'b0;
+             qbar <= 1'b1; 
+         end
+         else if (s == 1 && r == 0) begin
+             q <= 1'b1;
+             qbar <= 1'b0;
+         end
+         else if (s == 1 && r == 1) begin
+             q <= 1'bx;
+             qbar <= 1'bx;
+         end
+     end
+     
+    endmodule
