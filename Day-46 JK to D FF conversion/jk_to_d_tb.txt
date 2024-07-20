@@ -1,0 +1,37 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/20/2024 07:20:46 PM
+// Design Name: 
+// Module Name: JK_to_D_conversion_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+module JK_to_D_conversion_tb;
+    wire q, qbar;
+    reg D, clk;
+    JK_to_D_conversion dut(.q(q),.qbar(qbar),.clk(clk),.D(D));
+    
+    //always #50 clk = ~clk;
+    //always #100 D = ~D;
+    initial begin
+        clk = 0;
+        D = 0;
+        $monitor("q=%b qbar=%b D=%b clk=%b", q, qbar, D, clk);
+        #1000 $finish;
+    end
+     always #50 clk = ~clk;
+       always #100 D = ~D;
+endmodule
