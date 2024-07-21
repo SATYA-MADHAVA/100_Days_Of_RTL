@@ -1,0 +1,34 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/21/2024 11:49:17 PM
+// Design Name: 
+// Module Name: JK_to_T_conversion_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+module JK_to_T_conversion_tb;
+    wire q, qbar;
+    reg t, clk;
+    JK_to_T_conversion uut (q, qbar, t, clk);
+    
+    always #50 clk = ~clk;
+    always #100 t = ~t;
+    initial begin
+        clk = 0;
+        t = 0;
+        $monitor("q=%b qbar=%b t=%b clk=%b", q, qbar, t, clk);
+        #1000 $finish;
+    end
+endmodule
