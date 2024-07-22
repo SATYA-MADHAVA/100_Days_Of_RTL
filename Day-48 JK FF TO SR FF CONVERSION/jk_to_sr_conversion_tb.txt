@@ -1,0 +1,37 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/22/2024 09:16:25 PM
+// Design Name: 
+// Module Name: jk_to_sr_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+module jk_to_sr_tb;
+    wire q, qb;
+    reg s, r, clk;
+    jk_to_sr uut(q, qb, s, r, clk);
+    
+    always #10 clk = ~clk;
+    always #200 r = ~r;
+    always #400 s = ~s;
+    initial begin
+        clk = 0;
+        s = 0;
+        r = 0;
+        $monitor("q=%b qb=%b s=%b r=%b clk=%b", q, qb, s, r, clk);
+        #1000 $finish;
+    end
+endmodule
