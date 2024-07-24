@@ -1,0 +1,40 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/24/2024 09:50:37 PM
+// Design Name: 
+// Module Name: d_to_sr_ff_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module d_to_sr_ff_tb;
+reg s,r,reset,clk;
+wire q,qbar;
+
+d_to_sr_ff uut(q,qbar,s,r,reset,clk);
+initial #100 reset = 1;
+always #50 clk = ~clk;
+always #100 s = ~s;
+always #200 r = ~r;
+initial begin
+  clk = 0;
+  reset = 0;
+  s = 1; 
+  r =1;
+   $monitor("q=%b qbar=%b s=%b r=%b reset=%b clk=%b",q,qbar,s,r,reset,clk);
+   #1000 $finish;
+   end
+endmodule
