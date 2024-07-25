@@ -1,0 +1,52 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/25/2024 11:29:52 PM
+// Design Name: 
+// Module Name: d_ff_to_jk_ff
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module d_ff_to_jk_ff(
+output q,
+output qbar,
+input j,k,reset,clk
+    );
+    wire d;
+    d_ff d_ff_1(q,qbar,d,reset,clk);
+    assign d = (~k&q)|(j&qbar);
+  endmodule
+
+module d_ff(
+output reg q,
+output reg qbar,
+input d,
+input reset,
+input clk
+  );
+ always @(posedge clk or negedge reset) 
+ if (!reset) begin
+ q <= 0;
+ qbar <= 1;end
+ else begin
+ q <= d;
+ qbar <= ~d; end
+ 
+ initial begin
+   q = 0;
+   qbar = 1;
+  end
+  endmodule
