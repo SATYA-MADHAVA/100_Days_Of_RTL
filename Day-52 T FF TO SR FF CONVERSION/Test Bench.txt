@@ -1,0 +1,40 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/27/2024 10:32:51 PM
+// Design Name: 
+// Module Name: T_ff_to_SR_ff_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module T_ff_to_SR_ff_tb;
+wire q,qbar;
+ reg s, r, reset, clk;
+   T_ff_to_SR_ff uut(q, qbar, s, r, reset, clk);
+   initial
+   begin
+       s = 0;
+       r = 0;
+       reset = 0;
+       clk = 0;
+       #100 reset = 1;
+       $monitor("q=%b qbar=%b s=%b r=%b reset=%b clk=%b",q, qbar, s, r, reset, clk);
+       #1000 $finish;
+   end
+   always #100 s = ~s;
+   always #200 r = ~r;
+   always #50 clk = ~clk;
+endmodule

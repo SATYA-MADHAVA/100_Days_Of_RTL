@@ -1,0 +1,55 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/27/2024 10:07:52 PM
+// Design Name: 
+// Module Name: T_ff_to_SR_ff
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module T_ff_to_SR_ff(
+output q,qbar,
+input s,r,reset,
+input clk
+    );
+   wire t;
+   assign t = (s&qbar)|(r&q); 
+ t_ff ff_1(q,qbar,t,reset,clk);
+endmodule
+
+module t_ff(
+output reg q,
+output reg qbar,
+input t,
+input reset,
+input clk
+  );
+  
+always @(posedge clk or negedge reset)
+ begin
+       if (!reset)
+       begin
+           q <= 0;
+           qbar <= 1;
+       end
+       else
+       begin
+           q <= ~t;
+           qbar <= t;
+       end
+   end
+  
+endmodule
