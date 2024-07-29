@@ -1,0 +1,41 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/29/2024 10:32:54 PM
+// Design Name: 
+// Module Name: T_ff_to_JK_ff_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module T_ff_to_JK_ff_tb;
+wire q,qbar;
+reg j,k,reset,clk;
+
+T_ff_to_JK_ff uut(q,qbar,j,k,reset,clk);
+ initial
+  begin
+ j = 0;
+ k =0;
+ reset = 0;
+ clk = 0;
+ #100 reset = 1;
+  $monitor(" q=%b qbar=%b j=%b k=%b reset=%b clk=%b",q,qbar,j,k,reset,clk);
+  #1000 $finish;
+ end
+ always #50 clk = ~clk;
+ always #100 j = ~j;
+ always #200 k = ~k;
+ endmodule
