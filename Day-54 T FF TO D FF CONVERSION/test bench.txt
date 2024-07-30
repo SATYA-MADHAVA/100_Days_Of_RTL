@@ -1,0 +1,42 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/30/2024 02:43:24 PM
+// Design Name: 
+// Module Name: T_ff_to_D_ff_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module T_ff_to_D_ff_tb;
+wire q;
+wire qbar;
+reg d,reset,clk;
+
+T_ff_to_D_ff uut(q,qbar,d,reset,clk);
+
+initial begin
+reset = 0;
+clk = 0;
+d = 0;
+$monitor("q=%b qbar=%b d=%b reset=%b clk=%b",q,qbar,d,reset,clk);
+#1000 $finish;
+end
+always #50 clk = ~clk;
+always #100 d = ~d;
+initial #100 reset = 1;
+
+  
+endmodule
