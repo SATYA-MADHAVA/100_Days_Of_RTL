@@ -1,0 +1,38 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/31/2024 11:08:13 PM
+// Design Name: 
+// Module Name: FA_BY_DECODER_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module FA_BY_DECODER_tb;
+wire sum,carry;
+reg a,b,cin;
+
+FA_BY_DECODER uut(sum,carry,a,b,cin);
+ initial begin
+       $monitor("a=%b b=%b cin=%b sum=%b carry=%b",a,b,cin,sum,carry);
+       a=0; b=0; cin=0;
+       #100 $finish;
+   end
+   always #5 a= ~a;
+   always #10 b= ~b;
+   always #20 cin = ~cin;
+
+  
+endmodule

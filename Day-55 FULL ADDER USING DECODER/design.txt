@@ -1,0 +1,54 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07/31/2024 10:23:58 PM
+// Design Name: 
+// Module Name: FA_BY_DECODER
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module FA_BY_DECODER(
+output sum,carry,
+input a,b,cin
+ );
+   wire [7:0] y;
+   wire w1,w2,w3;
+ decoder d1(y,{a,b,cin});
+ assign w1 = y[1] | y[2] | y[4] | y[7];
+     assign w2 = y[3] | y[5] | y[6] | y[7];
+     
+     assign sum = w1;
+     assign carry = w2;
+endmodule
+
+module decoder(
+output reg [7:0]y,
+input  [2:0] i
+);
+always@(*)
+begin 
+    case(i)
+        3'b000: y= 8'b0000_0001;
+        3'b001: y= 8'b0000_0010;
+        3'b010: y= 8'b0000_0100;
+        3'b011: y= 8'b0000_1000;
+        3'b100: y= 8'b0001_0000;
+        3'b101: y= 8'b0010_0000;
+        3'b110: y= 8'b0100_0000;
+        3'b111: y= 8'b1000_0000;
+    endcase
+end
+endmodule
