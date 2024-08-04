@@ -1,0 +1,43 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 08/04/2024 05:10:34 PM
+// Design Name: 
+// Module Name: barrel_shifter_4bit_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module barrel_shifter_4bit_tb;
+reg [3:0]in;
+reg [1:0]shift_mag;
+wire [3:0]out;
+
+barrel_shifter_4bit uut(in,shift_mag,out);
+initial begin
+ $monitor("in=%d shift_mag=%d out=%d",in,shift_mag,out);
+         in = 4'd0;
+         shift_mag = 2'b00;
+         #20; 
+         in = 4'b1010;
+         shift_mag = 2'd01;
+         #20;
+        // in = 4'd8;
+        // shift_mag = 2'd2;
+         //#20;
+         $finish;
+     end
+
+endmodule

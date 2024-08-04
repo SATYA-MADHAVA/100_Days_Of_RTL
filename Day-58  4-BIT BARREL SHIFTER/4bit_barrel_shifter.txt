@@ -1,0 +1,51 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 08/04/2024 04:14:26 PM
+// Design Name: 
+// Module Name: barrel_shifter_4bit
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module barrel_shifter_4bit(
+input  [3:0] in,
+input [1:0] shift_mag,
+output [3:0] out
+    );
+    wire [3:0]o1;
+   mux_4x1 m0 (in[0], in[1], in[2], in[3], shift_mag,o1[0]);
+   mux_4x1 m1 (in[1],in[2],in[3],in[0],shift_mag,o1[1]);
+   mux_4x1 m2 (in[2],in[3],in[0],in[1],shift_mag,o1[2]);
+   mux_4x1 m3 (in[3],in[0],in[1],in[2],shift_mag,o1[3]);
+   assign out = o1;
+endmodule
+
+module mux_4x1(
+input  i0,i1,i2,i3,
+input wire[1:0] sel,
+output reg y
+ );
+ 
+ always @(*) begin
+  case(sel)
+  2'b00: y = i0;
+  2'b01: y = i1;
+  2'b10: y = i2;
+  2'b11: y = i3;
+  default: y = 1'b0;
+  endcase
+  end
+ endmodule
