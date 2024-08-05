@@ -1,0 +1,46 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 08/05/2024 09:58:40 PM
+// Design Name: 
+// Module Name: barrel_shifter_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module barrel_shifter_tb;
+reg [7:0] in;
+    reg [2:0] shift_mag;
+    wire [7:0] out; 
+
+
+    
+    barrel_shifter dut(in,shift_mag,out);
+    
+    initial begin
+        $monitor("in=%d shift_mag=%d out=%d",in,shift_mag,out);
+        in = 8'd0;
+        shift_mag = 3'd0;
+        #20; 
+        in = 8'd16;
+        shift_mag = 3'd1;
+        #20;
+        in = 8'd4;
+        shift_mag = 3'd2;
+        #20;
+        $finish;
+    end
+    
+endmodule
