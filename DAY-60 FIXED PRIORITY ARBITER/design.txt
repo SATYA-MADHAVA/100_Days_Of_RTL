@@ -1,0 +1,73 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 08/06/2024 11:16:46 PM
+// Design Name: 
+// Module Name: fixed_priority_arbiter
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fixed_priority_arbiter(
+input clk,
+input reset,
+input req0,
+input req1,
+input req2,
+input req3,
+output reg grant0,
+output reg grant1,
+output reg grant2,
+output reg grant3
+
+);
+always @(posedge clk or negedge reset) begin
+  if (reset) begin
+           grant0 <= 0;
+           grant1 <= 0;
+           grant2 <= 0;
+           grant3 <= 0;
+       end else begin
+           if (req0) begin
+               grant0 <= 1;
+               grant1 <= 0;
+               grant2 <= 0;
+               grant3 <= 0;
+           end else if (req1) begin
+               grant0 <= 0;
+               grant1 <= 1;
+               grant2 <= 0;
+               grant3 <= 0;
+           end else if (req2) begin
+               grant0 <= 0;
+               grant1 <= 0;
+               grant2 <= 1;
+               grant3 <= 0;
+           end else if (req3) begin
+               grant0 <= 0;
+               grant1 <= 0;
+               grant2 <= 0;
+               grant3 <= 1;
+           end else begin
+               grant0 <= 0;
+               grant1 <= 0;
+               grant2 <= 0;
+               grant3 <= 0;
+           end
+       end
+   end
+endmodule
+
+

@@ -1,0 +1,136 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 08/06/2024 11:34:32 PM
+// Design Name: 
+// Module Name: fixed_priority_arbiter_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fixed_priority_arbiter_tb;
+ reg clk;
+   reg reset;
+   reg req0;
+   reg req1;
+   reg req2;
+   reg req3;
+
+   wire grant0;
+   wire grant1;
+   wire grant2;
+   wire grant3;
+
+  fixed_priority_arbiter uut (
+       .clk(clk),
+       .reset(reset),
+       .req0(req0),
+       .req1(req1),
+       .req2(req2),
+       .req3(req3),
+       .grant0(grant0),
+       .grant1(grant1),
+       .grant2(grant2),
+       .grant3(grant3)
+   );
+
+   always #5 clk = ~clk;
+
+   initial begin
+       clk = 0;
+       reset = 0;
+       req0 = 0;
+       req1 = 0;
+       req2 = 0;
+       req3 = 0;
+
+       reset = 1;
+       #10;
+       reset = 0;
+       #10;
+
+       req0 = 0;
+       req1 = 0;
+       req2 = 0;
+       req3 = 0;
+       #10;
+       $display("Test 1 - No requests: grant0=%b, grant1=%b, grant2=%b, grant3=%b", grant0, grant1, grant2, grant3);
+
+       req0 = 1;
+       req1 = 0;
+       req2 = 0;
+       req3 = 0;
+       #10;
+       $display("Test 2 - req0 active: grant0=%b, grant1=%b, grant2=%b, grant3=%b", grant0, grant1, grant2, grant3);
+
+       req0 = 0;
+       req1 = 1;
+       req2 = 0;
+       req3 = 0;
+       #10;
+       $display("Test 3 - req1 active: grant0=%b, grant1=%b, grant2=%b, grant3=%b", grant0, grant1, grant2, grant3);
+
+       req0 = 0;
+       req1 = 0;
+       req2 = 1;
+       req3 = 0;
+       #10;
+       $display("Test 4 - req2 active: grant0=%b, grant1=%b, grant2=%b, grant3=%b", grant0, grant1, grant2, grant3);
+
+       req0 = 0;
+       req1 = 0;
+       req2 = 0;
+       req3 = 1;
+       #10;
+       $display("Test 5 - req3 active: grant0=%b, grant1=%b, grant2=%b, grant3=%b", grant0, grant1, grant2, grant3);
+
+       req0 = 1;
+       req1 = 1;
+       req2 = 1;
+       req3 = 1;
+       #10;
+       $display("Test 6 - Multiple requests, req0 highest priority: grant0=%b, grant1=%b, grant2=%b, grant3=%b", grant0, grant1, grant2, grant3);
+
+       req0 = 0;
+       req1 = 1;
+       req2 = 1;
+       req3 = 1;
+       #10;
+       $display("Test 7 - Multiple requests, req1 highest active priority: grant0=%b, grant1=%b, grant2=%b, grant3=%b", grant0, grant1, grant2, grant3);
+
+       req0 = 0;
+       req1 = 0;
+       req2 = 1;
+       req3 = 1;
+       #10;
+       $display("Test 8 - Multiple requests, req2 highest active priority: grant0=%b, grant1=%b, grant2=%b, grant3=%b", grant0, grant1, grant2, grant3);
+
+       req0 = 0;
+       req1 = 0;
+       req2 = 0;
+       req3 = 1;
+       #10;
+       $display("Test 9 - Multiple requests, req3 highest active priority: grant0=%b, grant1=%b, grant2=%b, grant3=%b", grant0, grant1, grant2, grant3);
+
+      
+       req0 = 0;
+       req1 = 0;
+       req2 = 0;
+       req3 = 0;
+       #10;
+       $display("Test 10 - No requests again: grant0=%b, grant1=%b, grant2=%b, grant3=%b", grant0, grant1, grant2, grant3);
+       $finish;
+   end
+endmodule
