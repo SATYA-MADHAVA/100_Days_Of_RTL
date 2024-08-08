@@ -1,0 +1,48 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 08/08/2024 07:09:17 PM
+// Design Name: 
+// Module Name: round_robbin_1_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module round_robbin_1_tb;
+reg clk, reset;
+		reg [3:0] REQ;
+		wire [3:0] GRNT;
+		
+		round_robbin_1 dut(clk,reset,REQ,GRNT);
+		
+		initial begin
+		$monitor("clk=%b reset=%b REQ=%b GRNT=%b",clk,reset,REQ,GRNT);
+		  clk = 0;
+		  reset = 1;
+		  #20 reset = 0;
+		  REQ = 4'b0;
+		  #20  REQ  = 4'b1010;
+		  #20  REQ  = 4'b1000;
+		  #20  REQ  = 4'b1100;
+		  #20  REQ  = 4'b0100;
+		  #20  REQ  = 4'b0001;
+		  #20  REQ  = 4'b0010;
+		  #20  REQ  = 4'b0110;
+		  #20  REQ  = 4'b1110;
+		  #20  REQ  = 4'b1111;
+		  #20 $finish;	
+		end
+          always #5 clk = ~clk;
+endmodule

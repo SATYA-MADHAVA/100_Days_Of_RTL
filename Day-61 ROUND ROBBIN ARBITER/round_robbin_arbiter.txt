@@ -1,0 +1,191 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// Create Date: 08/08/2024 11:27:03 AM
+// Design Name: 
+// Module Name: round_robbin_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module round_robbin_1(
+input clk,
+input reset,
+input [3:0] REQ,
+output reg[3:0] GNT
+    );
+reg [2:0] present_state;
+reg [2:0] next_state;
+parameter [2:0] s_ideal = 3'b000;
+parameter [2:0] s_0 = 3'b001;
+parameter [2:0] s_1 = 3'b010;
+parameter [2:0] s_2 = 3'b011;
+parameter [2:0] s_3 = 3'b100;
+
+always@(posedge clk or negedge reset)
+  begin
+    if(!reset)
+       present_state <= s_ideal;
+       else
+       present_state <= next_state;
+    end
+    always@(*)
+       begin
+        case(present_state)
+           s_ideal : begin
+             if(REQ[0])
+               begin
+                next_state = s_0;
+                end
+             else if(REQ[1])
+              begin
+               next_state =s_1;
+               end
+             else if(REQ[2])
+               begin
+               next_state = s_2;
+               end
+            else if(REQ[3])
+             begin
+              next_state =s_3;
+              end
+           else 
+            begin 
+            next_state = s_ideal;
+            end         
+       end    
+    s_0:begin
+      if(REQ[1])
+        begin
+            next_state = s_1;
+          end
+        else if(REQ[2])
+         begin
+            next_state = s_2;
+          end
+        else if(REQ[3])
+          begin
+             next_state = s_3;
+           end
+         else if(REQ[0])
+           begin
+              next_state = s_0;
+           end
+       else 
+       begin 
+          next_state = s_ideal;
+          end  
+          end
+         s_1:begin
+               if(REQ[2])
+                 begin
+                     next_state = s_2;
+                   end
+                 else if(REQ[3])
+                  begin
+                     next_state = s_3;
+                   end
+                 else if(REQ[0])
+                   begin
+                      next_state = s_0;
+                    end
+                  else if(REQ[1])
+                    begin
+                       next_state = s_1;
+                    end
+                else 
+                begin 
+                   next_state = s_ideal;
+                   end 
+                end
+              s_2:begin
+                        if(REQ[3])
+                          begin
+                              next_state = s_3;
+                            end
+                          else if(REQ[0])
+                           begin
+                              next_state = s_0;
+                            end
+                          else if(REQ[1])
+                            begin
+                               next_state = s_1;
+                             end
+                           else if(REQ[2])
+                             begin
+                                next_state = s_2;
+                             end
+                         else 
+                         begin 
+                            next_state = s_ideal;
+                            end 
+                         end
+                       s_3:begin
+                                 if(REQ[0])
+                                   begin
+                                       next_state = s_0;
+                                     end
+                                   else if(REQ[1])
+                                    begin
+                                       next_state = s_1;
+                                     end
+                                   else if(REQ[2])
+                                     begin
+                                        next_state = s_2;
+                                      end
+                                    else if(REQ[3])
+                                      begin
+                                         next_state = s_3;
+                                      end
+                                  else 
+                                  begin 
+                                     next_state = s_ideal;
+                                     end       
+                                   end
+                            default : begin
+                               if(REQ[0])
+                                begin 
+                                 next_state = s_0;
+                                 end
+                               else if(REQ[1])
+                                begin
+                                  next_state = s_1;
+                                  end
+                               else if(REQ[2])
+                                  begin
+                                   next_state = s_2;
+                                   end
+                                else if(REQ[3])
+                                 begin
+                                   next_state = s_3;
+                                     end
+                                  else
+                                   begin
+                                     next_state = s_ideal;
+                                   end
+                                 end
+                              endcase
+                            end
+                            
+                   always@(*)
+                     begin
+                     case(present_state)
+                     s_0 : begin GNT = 4'b0001; end
+                     s_1 : begin GNT = 4'b0010; end
+                     s_2 : begin GNT = 4'b0100; end
+                     s_3 : begin GNT = 4'b1000; end
+                   default : begin GNT = 4'b0000; end
+                 endcase
+               end
+             endmodule 
