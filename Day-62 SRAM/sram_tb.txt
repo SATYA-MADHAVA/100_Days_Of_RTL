@@ -1,0 +1,76 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 08/13/2024 10:23:57 PM
+// Design Name: 
+// Module Name: SRAM_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module SRAM_tb;
+
+    reg clk;
+    reg we;
+    reg [9:0] addr;
+    reg [18:0] data_in;
+    wire [18:0] data_out;
+
+    SRAM #(
+        .DATA_WIDTH(19),
+        .ADDR_WIDTH(10)
+    ) sram_inst (
+        .clk(clk),
+        .we(we),
+        .addr(addr),
+        .data_in(data_in),
+        .data_out(data_out)
+    );
+
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk; 
+    end
+
+    
+    initial begin
+       
+        we = 0;
+        addr = 10'b0;
+        data_in = 19'b0;
+
+     
+        #10;
+        we = 1;
+        addr = 10'b0000000001;
+        data_in = 19'h12345;
+
+        #10;
+        we = 1;
+        addr = 10'b0000000010; 
+        data_in = 19'hABCDE;
+
+        
+        #10;
+        we = 0;
+        addr = 10'b0000000001; 
+
+        #10;
+        addr = 10'b0000000010; 
+
+        #10;
+        $stop; 
+    end
+endmodule
