@@ -1,0 +1,44 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 08/31/2024 09:10:12 PM
+// Design Name: 
+// Module Name: clock_divider_by_4
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module clock_divider_by_4(
+
+    input wire clk_in,   
+    input wire rst,      
+    output reg clk_out   
+);
+
+    reg [1:0] count;    
+
+    always @(posedge clk_in or posedge rst) begin
+        if (rst) begin
+            count <= 2'b00;    
+            clk_out <= 1'b0; 
+        end else begin
+            count <= count + 1'b1;   
+            if (count == 2'b11) begin
+                clk_out <= ~clk_out; 
+            end
+        end
+    end
+
+endmodule
